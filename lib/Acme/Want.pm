@@ -45,7 +45,15 @@ Acme::Want -
 
 =head1 SYNOPSIS
 
-  use Acme::Want;
+    use Moose;
+    use Acme::Want;
+
+    around foo => sub {
+        my ($code, @args) = @_;
+        my $ret = wrap_context { $code->() };
+        some_cleanup_stuff();
+        return $ret->get();
+    };
 
 =head1 DESCRIPTION
 
